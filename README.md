@@ -84,7 +84,7 @@ setTimeout(() => {
 ```
 
 ### example in Flux Store.
-Recommend: (MicroStore)[https://github.com/khirayama/MicroStore]
+Recommend: [MicroStore](https://github.com/khirayama/MicroStore)
 
 ```flux.es6.js
 import MicroEmitter from 'micro-emitter';
@@ -124,7 +124,7 @@ new SomeStore();
 
 
 ### if you use React....
-Recommend: (MicroStore)[https://github.com/khirayama/MicroStore]
+Recommend: [MicroStore](https://github.com/khirayama/MicroStore)
 
 Linten Store's events at ```componentDisMount```.
 
