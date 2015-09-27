@@ -11,20 +11,16 @@ because I make a emitter in 100 lines.
 $ npm install micro-emitter
 ```
 
-```es6
-
+```es6.js
 import MicroEmitter from 'micro-emitter';
 
 let AppEmitter = new MicroEmitter();
-
 ```
 
-```es5
-
+```es5.js
 var MicroEmitter = require('micro-emitter');
 
 var AppEmitter = new MicroEmitter();
-
 ```
 
 ## API
@@ -38,46 +34,40 @@ It has 4 API and some alias only.
 
 ### addListene(on)/addOnceListener(once)
 
-```
-
+```es6.js
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
 AppEmitter.addListener(CHANGE_EVENT, callbak);
 AppEmitter.on(CHANGE_EVENT, callbak);
 AppEmitter.addOnceListener(CHANGE_EVENT, callbak); // only first time
 AppEmitter.once(CHANGE_EVENT, callbak); // only first time
-
 ```
 
 ### removeListener(off)
 
-```
-
+```es6.js
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
 AppEmitter.removeListener(CHANGE_EVENT);
 AppEmitter.off(CHANGE_EVENT);
-
 ```
 
 ### emit(trigger)
 
-```
-
+```es6.js
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
 AppEmitter.addListener(CHANGE_EVENT, (payload) => {
   console.log(payload); // { message: 'Hello MicroEmitter!' }
 });
 AppEmitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' });
-
 ```
 
 ## example
 
 ### simple and complete example.
 
-```
+```sample.es6.js
 
 import MicroEmitter from 'micro-emitter';
 
@@ -95,8 +85,7 @@ setTimeout(() => {
 
 ### example in Flux Store.
 
-```
-
+```flux.es6.js
 import MicroEmitter from 'micro-emitter';
 
 const CHANGE_EVENT = 'CHANGE';
@@ -130,7 +119,6 @@ class SomeStore extends Store {
   }
 }
 new SomeStore();
-
 ```
 
 
@@ -138,8 +126,7 @@ new SomeStore();
 
 Linten Store's events at ```componentDisMount```.
 
-```
-
+```Component.es6.js
 class SomeComponent extends React.Component {
   constructor() {
     super();
@@ -159,5 +146,4 @@ class SomeComponent extends React.Component {
     });
   }
 }
-
 ```
