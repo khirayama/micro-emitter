@@ -48,7 +48,11 @@ export default class MicroEmitter {
   removeListener(type, listener) { // alias
     if (!this._listeners[type].length) return this;
     for (let index = 0; index < this._listeners[type].length; index++) {
-      if (this._listeners[type][index].listener === listener) this._listeners[type].splice(index, 1);
+      if (this._listeners[type][index].listener === listener) {
+        this._listeners[type].splice(index, 1);
+      } else {
+        console.warn('not registered this listener.');
+      }
     }
     return this;
   }
