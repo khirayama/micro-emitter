@@ -1,9 +1,11 @@
 {
   "name": "micro-emitter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "micro event emitter in es6.",
   "main": "lib/MicroEmitter.js",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "babel src --out-dir lib --source-maps-inline",
     "watch": "babel src --out-dir lib --watch --source-maps-inline"
@@ -17,7 +19,9 @@
     "emitter",
     "event",
     "events",
-    "browser"
+    "browser",
+    "flux",
+    "react"
   ],
   "author": "khirayama",
   "license": "MIT",
