@@ -1,11 +1,11 @@
 # MicroEmitter
 micro event emitter in es6.
 
-### Motivation
+## Motivation
 I need micro emitter for learning some apps.  
-because I make a emitter in 100 lines.
+And I make a emitter in 100 lines.
 
-### Getting Started
+## Getting Started
 
 ```
 $ npm install micro-emitter
@@ -63,7 +63,7 @@ AppEmitter.addListener(CHANGE_EVENT, (payload) => {
 AppEmitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' });
 ```
 
-## example
+## Example
 
 ### simple and complete example.
 
