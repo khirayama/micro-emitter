@@ -11,13 +11,13 @@ And I make a emitter in 100 lines.
 $ npm install micro-emitter
 ```
 
-```javascript:es6.js
+```javascript
 import MicroEmitter from 'micro-emitter';
 
 let AppEmitter = new MicroEmitter();
 ```
 
-```javascript:es5.js
+```javascript
 var MicroEmitter = require('micro-emitter');
 
 var AppEmitter = new MicroEmitter();
@@ -67,7 +67,7 @@ AppEmitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' });
 
 ### simple and complete example.
 
-```javascript:sample.js
+```javascript
 
 import MicroEmitter from 'micro-emitter';
 
@@ -86,7 +86,7 @@ setTimeout(() => {
 ### example in Flux Store.
 Recommend: [MicroStore](https://github.com/khirayama/MicroStore)
 
-```javascript:flux.js
+```javascript
 import MicroEmitter from 'micro-emitter';
 
 const CHANGE_EVENT = 'CHANGE';
@@ -128,7 +128,7 @@ Recommend: [MicroStore](https://github.com/khirayama/MicroStore)
 
 Linten Store's events at ```componentDisMount```.
 
-```javascript:Component.js
+```javascript
 class SomeComponent extends React.Component {
   constructor() {
     super();
