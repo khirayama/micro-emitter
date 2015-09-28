@@ -11,13 +11,13 @@ And I make a emitter in 100 lines.
 $ npm install micro-emitter
 ```
 
-```es6.js
+```javascript:es6
 import MicroEmitter from 'micro-emitter';
 
 let AppEmitter = new MicroEmitter();
 ```
 
-```es5.js
+```javascript:es5
 var MicroEmitter = require('micro-emitter');
 
 var AppEmitter = new MicroEmitter();
@@ -34,7 +34,7 @@ It has 4 API and some alias only.
 
 ### addListene(on)/addOnceListener(once)
 
-```es6.js
+```javascript
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
 AppEmitter.addListener(CHANGE_EVENT, callbak);
@@ -45,7 +45,7 @@ AppEmitter.once(CHANGE_EVENT, callbak); // only first time
 
 ### removeListener(off)
 
-```es6.js
+```javascript
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
 AppEmitter.removeListener(CHANGE_EVENT);
@@ -54,7 +54,7 @@ AppEmitter.off(CHANGE_EVENT);
 
 ### emit(trigger)
 
-```es6.js
+```javascript
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
 AppEmitter.addListener(CHANGE_EVENT, (payload) => {
@@ -67,7 +67,7 @@ AppEmitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' });
 
 ### simple and complete example.
 
-```sample.es6.js
+```javascript:sample.es6.js
 
 import MicroEmitter from 'micro-emitter';
 
@@ -86,7 +86,7 @@ setTimeout(() => {
 ### example in Flux Store.
 Recommend: [MicroStore](https://github.com/khirayama/MicroStore)
 
-```flux.es6.js
+```javascript:flux.es6.js
 import MicroEmitter from 'micro-emitter';
 
 const CHANGE_EVENT = 'CHANGE';
@@ -128,7 +128,7 @@ Recommend: [MicroStore](https://github.com/khirayama/MicroStore)
 
 Linten Store's events at ```componentDisMount```.
 
-```Component.es6.js
+```javascript:Component.es6.js
 class SomeComponent extends React.Component {
   constructor() {
     super();
