@@ -7,11 +7,11 @@ export default class MicroEmitter {
    * Adds a listener function to the specified event.
    * @param {String} type
    * @param {Function} listener
-   * @param {Boolean} isOnce
+   * @param {Boolean} once
    */
-  _addListener(type, listener, isOnce) {
+  _addListener(type, listener, once) {
     this._listeners[type] = this._listeners[type] || [];
-    this._listeners[type].push({ listener: listener, isOnce: isOnce });
+    this._listeners[type].push({ listener: listener, once: once });
     return this;
   }
 
@@ -46,6 +46,8 @@ export default class MicroEmitter {
    * @return {Object} Current instance of MicroEmitter for chaining.
    */
   removeListener(type, listener) { // alias
+    let isRemoved = false;
+
     if (!this._listeners[type].length) return this;
     if (!listener) {
       delete this._listeners[type];
@@ -54,10 +56,11 @@ export default class MicroEmitter {
     for (let index = 0; index < this._listeners[type].length; index++) {
       if (this._listeners[type][index].listener === listener) {
         this._listeners[type].splice(index, 1);
-      } else {
-        console.warn('not registered this listener.');
+        index--;
+        isRemoved = true;
       }
     }
+    if (!isRemoved) console.warn('not registered this listener.');
     return this;
   }
 
@@ -76,8 +79,8 @@ export default class MicroEmitter {
     if (!this._listeners[type]) return this;
     for (let index = 0; index < this._listeners[type].length; index++) {
       this._listeners[type][index].listener.apply(this, [payload]);
-      if (this._listeners[type][index].isOnce) {
-        this._listeners[type].splice(index, 1);
+      if (this._listeners[type][index].once) {
+        this.removeListener(type, this._listeners[type][index].listener);
         index--;
       }
     }

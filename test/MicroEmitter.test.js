@@ -19,7 +19,7 @@ function setMessage(payload) {
   message = payload.message;
 }
 
-describe('TodoActions', () => {
+describe('MicroEmitter', () => {
   beforeEach(() => {
     count = 0;
     message = '';
