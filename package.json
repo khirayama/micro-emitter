@@ -1,6 +1,6 @@
 {
   "name": "micro-emitter",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "micro event emitter in es6.",
   "main": "lib/MicroEmitter.js",
   "files": [
