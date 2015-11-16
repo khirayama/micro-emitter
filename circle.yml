@@ -1,0 +1,22 @@
+general:
+  branches:
+
+machine:
+  timezone: Asia/Tokyo
+
+checkout:
+  pre:
+    - git config --global user.name "circleci"
+    - git config --global user.email "circleci@feedforce.jp"
+
+dependencies:
+  override:
+    - npm i
+
+test:
+  override:
+    - npm test
+
+deployment:
+  master:
+    branch: master
