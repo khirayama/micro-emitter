@@ -1,6 +1,6 @@
 # MicroEmitter
+[![Circle CI](https://circleci.com/gh/khirayama/MicroEmitter.svg?style=svg)](https://circleci.com/gh/khirayama/MicroEmitter)  
 micro event emitter in es6.
-[![Circle CI](https://circleci.com/gh/khirayama/MicroEmitter.svg?style=svg)](https://circleci.com/gh/khirayama/MicroEmitter)
 
 ## Motivation
 I need micro emitter for learning some apps.  
