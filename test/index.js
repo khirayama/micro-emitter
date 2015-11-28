@@ -1,5 +1,5 @@
 import assert from 'power-assert';
-import MicroEmitter from '../src/MicroEmitter';
+import MicroEmitter from '../src';
 
 let count;
 let message;

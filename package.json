@@ -2,7 +2,7 @@
   "name": "micro-emitter",
   "version": "1.0.8",
   "description": "micro event emitter in es6.",
-  "main": "lib/MicroEmitter.js",
+  "main": "lib/index.js",
   "files": [
     "lib"
   ],
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/khirayama/MicroEmitter.git"
+    "url": "git+https://github.com/khirayama/micro-emitter.git"
   },
   "eslintConfig": {
     "extends": "airbnb"
@@ -31,9 +31,9 @@
   "author": "khirayama",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/khirayama/MicroEmitter/issues"
+    "url": "https://github.com/khirayama/micro-emitter/issues"
   },
-  "homepage": "https://github.com/khirayama/MicroEmitter#readme",
+  "homepage": "https://github.com/khirayama/micro-emitter#readme",
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-eslint": "^4.1.3",
