@@ -1,6 +1,7 @@
 # MicroEmitter
 [![npm version](https://badge.fury.io/js/micro-emitter.svg)](https://badge.fury.io/js/micro-emitter)
-[![Circle CI](https://circleci.com/gh/khirayama/micro-emitter.svg?style=svg)](https://circleci.com/gh/khirayama/micro-emitter)  
+<!--- [![Circle CI](https://circleci.com/gh/khirayama/micro-emitter.svg?style=flat&label=circle)](https://circleci.com/gh/khirayama/micro-emitter) --->
+[![CircleCI Status](https://img.shields.io/circleci/project/khirayama/micro-emitter/master.svg?style=flat&label=circle)](https://circleci.com/gh/khirayama/micro-emitter)  
 micro event emitter in es6.
 
 ## Motivation
