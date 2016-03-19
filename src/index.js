@@ -77,13 +77,12 @@ export default class MicroEmitter {
    */
   emit(type, payload) {
     if (!this._listeners[type]) return this;
-    for (let index = 0; index < this._listeners[type].length; index++) {
-      this._listeners[type][index].listener.apply(this, [payload]);
-      if (this._listeners[type][index].once) {
-        this.removeListener(type, this._listeners[type][index].listener);
-        index--;
+    this._listeners[type].forEach((_listener) => {
+      _listener.listener.apply(this, [payload]);
+      if (_listener.once) {
+        this.removeListener(type, _listener.listener);
       }
-    }
+    });
     return this;
   }
 
