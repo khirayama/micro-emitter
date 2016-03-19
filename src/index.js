@@ -53,13 +53,14 @@ export default class MicroEmitter {
       delete this._listeners[type];
       return this;
     }
-    for (let index = 0; index < this._listeners[type].length; index++) {
-      if (this._listeners[type][index].listener === listener) {
-        this._listeners[type].splice(index, 1);
-        index--;
+    this._listeners[type] = this._listeners[type].filter((_listener) => {
+      if (_listener.listener === listener) {
         isRemoved = true;
+        return false;
+      } else {
+        return true;
       }
-    }
+    });
     if (!isRemoved) console.warn('not registered this listener.');
     return this;
   }
