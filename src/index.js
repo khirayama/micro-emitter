@@ -46,22 +46,14 @@ export default class MicroEmitter {
    * @return {Object} Current instance of MicroEmitter for chaining.
    */
   removeListener(type, listener) { // alias
-    let isRemoved = false;
-
     if (!this._listeners[type].length) return this;
     if (!listener) {
       delete this._listeners[type];
       return this;
     }
     this._listeners[type] = this._listeners[type].filter((_listener) => {
-      if (_listener.listener === listener) {
-        isRemoved = true;
-        return false;
-      } else {
-        return true;
-      }
+      return !(_listener.listener === listener);
     });
-    if (!isRemoved) console.warn('not registered this listener.');
     return this;
   }
 
