@@ -4,8 +4,8 @@
 micro event emitter in es6.
 
 ## Motivation
-I need micro emitter for learning some apps.  
-And I make a emitter in 100 lines.
+I want simple emitter for my apps I created.  
+For that reason, I made independent emitter in 100 lines.
 
 ## Getting Started
 
@@ -16,13 +16,13 @@ $ npm install micro-emitter
 ```javascript
 import MicroEmitter from 'micro-emitter';
 
-let AppEmitter = new MicroEmitter();
+let appEmitter = new MicroEmitter();
 ```
 
 ```javascript
 var MicroEmitter = require('micro-emitter');
 
-var AppEmitter = new MicroEmitter();
+var appEmitter = new MicroEmitter();
 ```
 
 ## API
@@ -39,10 +39,10 @@ It has 4 API and some alias only.
 ```javascript
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
-AppEmitter.addListener(CHANGE_EVENT, callbak);
-AppEmitter.on(CHANGE_EVENT, callbak);
-AppEmitter.addOnceListener(CHANGE_EVENT, callbak); // only first time
-AppEmitter.once(CHANGE_EVENT, callbak); // only first time
+appEmitter.addListener(CHANGE_EVENT, callbak);
+appEmitter.on(CHANGE_EVENT, callbak);
+appEmitter.addOnceListener(CHANGE_EVENT, callbak); // only first time
+appEmitter.once(CHANGE_EVENT, callbak); // only first time
 ```
 
 ### removeListener(off)
@@ -50,8 +50,8 @@ AppEmitter.once(CHANGE_EVENT, callbak); // only first time
 ```javascript
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
-AppEmitter.removeListener(CHANGE_EVENT);
-AppEmitter.off(CHANGE_EVENT);
+appEmitter.removeListener(CHANGE_EVENT);
+appEmitter.off(CHANGE_EVENT);
 ```
 
 ### emit(trigger)
@@ -59,10 +59,10 @@ AppEmitter.off(CHANGE_EVENT);
 ```javascript
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
-AppEmitter.addListener(CHANGE_EVENT, (payload) => {
+appEmitter.addListener(CHANGE_EVENT, (payload) => {
   console.log(payload); // { message: 'Hello MicroEmitter!' }
 });
-AppEmitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' });
+appEmitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' });
 ```
 
 ## Example
@@ -75,12 +75,12 @@ import MicroEmitter from 'micro-emitter';
 
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
-AppEmitter.addListener(CHANGE_EVENT, (payload) => {
+appEmitter.addListener(CHANGE_EVENT, (payload) => {
   alert(payload.message);
 });
 
 setTimeout(() => {
-  AppEmitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' }});
+  appEmitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' }});
 }, 1000);
 
 ```
@@ -115,7 +115,7 @@ class SomeStore extends Store {
   }
   _create(message) {
     this._message = message;
-    this.dispatchChange(); // define Store extened TinyDispatcher.
+    this.dispatchChange(); // define Store extened MicroEmitter.
   }
   getMessage() {
     return this._message;
@@ -125,29 +125,50 @@ new SomeStore();
 ```
 
 
-### if you use React....
-Recommend: [MicroStore](https://github.com/khirayama/MicroStore)
-
-Linten Store's events at ```componentDisMount```.
+### if use React....(like micro flux)
+Ref: https://jsfiddle.net/reactjs/69z2wepo/
 
 ```javascript
-class SomeComponent extends React.Component {
+class CountComponent extends React.Component {
   constructor() {
     super();
     this.state = {
-      message: 'Hello World.'
+      count: 0,
     };
+    this.emitter = new MicroEmitter();
   }
   componentDidMount() {
-    SomeStore.addChangeListener(this._onChange.bind(this));
+    this.emitter.on('increment', this.countUp.bind(this));
+    this.emitter.on('decrement', this.countDown.bind(this));
   }
-  render() {
-    return <div>{this.state.message}</div>;
-  }
-  _onChange() {
+  countUp(count) {
+  	console.log('diff', count, this.state.count);
     this.setState({
-      message: SomeStore.getMessage()
+      count: this.state.count + count,
     });
   }
+  countDown(count) {
+    this.setState({
+      count: this.state.count - count,
+    });
+  }
+  render() {
+  	console.log('state', this.state);
+    return (
+    	<section>
+      	<div>{this.state.count}</div>
+      	<CountUpButton emitter={this.emitter}></CountUpButton>
+      	<CountDownButton emitter={this.emitter}></CountDownButton>
+      </section>
+    );
+  }
+}
+
+function CountUpButton(props) {
+  return <div onClick={() => props.emitter.emit('increment', 1)}>+1</div>;
+}
+
+function CountDownButton(props) {
+  return <div onClick={() => props.emitter.emit('decrement', 1)}>-1</div>;
 }
 ```
