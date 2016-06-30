@@ -142,7 +142,6 @@ class CountComponent extends React.Component {
     this.emitter.on('decrement', this.countDown.bind(this));
   }
   countUp(count) {
-  	console.log('diff', count, this.state.count);
     this.setState({
       count: this.state.count + count,
     });
@@ -153,7 +152,6 @@ class CountComponent extends React.Component {
     });
   }
   render() {
-  	console.log('state', this.state);
     return (
     	<section>
       	<div>{this.state.count}</div>
