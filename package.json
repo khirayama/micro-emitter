@@ -1,6 +1,6 @@
 {
   "name": "micro-emitter",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "micro event emitter in es6.",
   "main": "lib/index.js",
   "files": [
@@ -26,8 +26,7 @@
   },
   "babel": {
     "presets": [
-      "es2015",
-      "react"
+      "es2015"
     ],
     "plugins": [
       "babel-plugin-espower"
@@ -48,16 +47,15 @@
   },
   "homepage": "https://github.com/khirayama/micro-emitter#readme",
   "devDependencies": {
+    "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
     "babel-plugin-espower": "^2.3.1",
     "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.11.1",
     "browserify": "^13.0.1",
     "eslint": "^3.0.0",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.10.0",
     "eslint-plugin-jsx-a11y": "^1.5.3",
-    "eslint-plugin-react": "^5.2.2",
     "mocha": "^2.5.3",
     "power-assert": "^1.4.1"
   }

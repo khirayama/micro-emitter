@@ -11,7 +11,7 @@ export default class MicroEmitter {
    */
   _addListener(type, listener, once) {
     this._listeners[type] = this._listeners[type] || [];
-    this._listeners[type].push({ listener: listener, once: once });
+    this._listeners[type].push({ listener, once });
     return this;
   }
 
@@ -51,9 +51,9 @@ export default class MicroEmitter {
       delete this._listeners[type];
       return this;
     }
-    this._listeners[type] = this._listeners[type].filter((_listener) => {
-      return !(_listener.listener === listener);
-    });
+    this._listeners[type] = this._listeners[type].filter(
+      (_listener) => !(_listener.listener === listener)
+    );
     return this;
   }
 
