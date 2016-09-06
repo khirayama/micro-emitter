@@ -86,6 +86,17 @@ describe('MicroEmitter', () => {
       microEmitter.removeListener(TYPE);
       assert(microEmitter._listeners[TYPE] === undefined);
     });
+
+    it('no error when remove without add', () => {
+      microEmitter.removeListener(TYPE, countUp);
+    });
+
+    it('when remove non registered function', () => {
+      microEmitter.addListener(TYPE, countUp);
+      microEmitter.removeListener(TYPE, () => {} );
+      assert(microEmitter._listeners[TYPE].length === 1);
+      assert(microEmitter._listeners[TYPE][0].listener === countUp);
+    });
   });
   describe('off', () => {
     it('when remove countUp', () => {
@@ -95,6 +106,7 @@ describe('MicroEmitter', () => {
       microEmitter.off(TYPE, countUp);
       assert(microEmitter._listeners[TYPE].length === 0);
     });
+
   });
   describe('emit', () => {
     it('when emit event', () => {
