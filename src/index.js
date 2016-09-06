@@ -46,6 +46,7 @@ export default class MicroEmitter {
    * @return {Object} Current instance of MicroEmitter for chaining.
    */
   removeListener(type, listener) { // alias
+    if (!this._listeners[type]) return this;
     if (!this._listeners[type].length) return this;
     if (!listener) {
       delete this._listeners[type];
