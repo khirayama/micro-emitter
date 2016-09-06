@@ -94,6 +94,8 @@ describe('MicroEmitter', () => {
     it('when remove non registered function', () => {
       microEmitter.addListener(TYPE, countUp);
       microEmitter.removeListener(TYPE, () => {} );
+      assert(microEmitter._listeners[TYPE].length === 1);
+      assert(microEmitter._listeners[TYPE][0].listener === countUp);
     });
   });
   describe('off', () => {
