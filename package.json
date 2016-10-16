@@ -3,6 +3,10 @@
   "version": "1.1.10",
   "description": "micro event emitter in es6.",
   "main": "lib/index.js",
+  "engines": {
+    "node": ">=6.8.0",
+    "npm": ">=3.10.8"
+  },
   "files": [
     "lib"
   ],
@@ -18,14 +22,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/khirayama/micro-emitter.git"
-  },
-  "babel": {
-    "presets": [
-      "es2015"
-    ],
-    "plugins": [
-      "babel-plugin-espower"
-    ]
   },
   "keywords": [
     "eventemitter",
@@ -51,6 +47,14 @@
     "eslint-config-xo-space": "^0.15.0",
     "mocha": "^3.1.2",
     "power-assert": "^1.4.1"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      "babel-plugin-espower"
+    ]
   },
   "eslintConfig": {
     "extends": [
