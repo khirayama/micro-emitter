@@ -4,8 +4,7 @@
 micro event emitter in es6.
 
 ## Motivation
-I want simple emitter for my apps I created.  
-For that reason, I made independent emitter in 100 lines.
+I want simple emitter for my apps I created. For that reason, I made independent emitter in 100 lines.
 
 ## Getting Started
 
@@ -16,13 +15,13 @@ $ npm install micro-emitter
 ```javascript
 import MicroEmitter from 'micro-emitter';
 
-let appEmitter = new MicroEmitter();
+let emitter = new MicroEmitter();
 ```
 
 ```javascript
 var MicroEmitter = require('micro-emitter');
 
-var appEmitter = new MicroEmitter();
+var emitter = new MicroEmitter();
 ```
 
 ## API
@@ -39,10 +38,10 @@ It has 4 API and some alias only.
 ```javascript
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
-appEmitter.addListener(CHANGE_EVENT, callbak);
-appEmitter.on(CHANGE_EVENT, callbak);
-appEmitter.addOnceListener(CHANGE_EVENT, callbak); // only first time
-appEmitter.once(CHANGE_EVENT, callbak); // only first time
+emitter.addListener(CHANGE_EVENT, callbak);
+emitter.on(CHANGE_EVENT, callbak);
+emitter.addOnceListener(CHANGE_EVENT, callbak); // only first time
+emitter.once(CHANGE_EVENT, callbak); // only first time
 ```
 
 ### removeListener(off)
@@ -50,8 +49,8 @@ appEmitter.once(CHANGE_EVENT, callbak); // only first time
 ```javascript
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
-appEmitter.removeListener(CHANGE_EVENT);
-appEmitter.off(CHANGE_EVENT);
+emitter.removeListener(CHANGE_EVENT);
+emitter.off(CHANGE_EVENT);
 ```
 
 ### emit(trigger)
@@ -59,10 +58,10 @@ appEmitter.off(CHANGE_EVENT);
 ```javascript
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
-appEmitter.addListener(CHANGE_EVENT, (payload) => {
+emitter.addListener(CHANGE_EVENT, (payload) => {
   console.log(payload); // { message: 'Hello MicroEmitter!' }
 });
-appEmitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' });
+emitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' });
 ```
 
 ## Example
@@ -75,23 +74,22 @@ import MicroEmitter from 'micro-emitter';
 
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
-appEmitter.addListener(CHANGE_EVENT, (payload) => {
+emitter.addListener(CHANGE_EVENT, (payload) => {
   alert(payload.message);
 });
 
 setTimeout(() => {
-  appEmitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' }});
+  emitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' }});
 }, 1000);
 
 ```
 
-### example in Flux Store.
-Recommend: [MicroStore](https://github.com/khirayama/MicroStore)
+### example in flux.
 
 ```javascript
 import MicroEmitter from 'micro-emitter';
 
-const CHANGE_EVENT = 'CHANGE';
+const CHANGE_EVENT = '__CHANGE_EVENT';
 
 class Store extends MicroEmitter {
   constructor() {
@@ -108,25 +106,24 @@ class Store extends MicroEmitter {
   }
 }
 
-class SomeStore extends Store {
+class MessageStore extends Store {
   constructor() {
     super();
-    this._message = '';
+    this._messages = [];
   }
   _create(message) {
-    this._message = message;
+    this._messages.push(message);
     this.dispatchChange(); // define Store extened MicroEmitter.
   }
-  getMessage() {
-    return this._message;
+  getMessages() {
+    return this._messages;
   }
 }
-new SomeStore();
+new MessageStore();
 ```
 
 
-### if use React....(like micro flux)
-Ref: https://jsfiddle.net/reactjs/69z2wepo/
+### example in micro flux with React.
 
 ```javascript
 class CountComponent extends React.Component {
@@ -136,17 +133,20 @@ class CountComponent extends React.Component {
       count: 0,
     };
     this.emitter = new MicroEmitter();
+
+    this.countUp = this._countUp.bind(this);
+    this.countDown = this._countDown.bind(this);
   }
   componentDidMount() {
-    this.emitter.on('increment', this.countUp.bind(this));
-    this.emitter.on('decrement', this.countDown.bind(this));
+    this.emitter.on('increment', this.countUp);
+    this.emitter.on('decrement', this.countDown);
   }
-  countUp(count) {
+  _countUp(count = 1) {
     this.setState({
       count: this.state.count + count,
     });
   }
-  countDown(count) {
+  _countDown(count = 1) {
     this.setState({
       count: this.state.count - count,
     });
@@ -163,10 +163,10 @@ class CountComponent extends React.Component {
 }
 
 function CountUpButton(props) {
-  return <div onClick={() => props.emitter.emit('increment', 1)}>+1</div>;
+  return <div onClick={() => props.emitter.emit('increment')}>+1</div>;
 }
 
 function CountDownButton(props) {
-  return <div onClick={() => props.emitter.emit('decrement', 1)}>-1</div>;
+  return <div onClick={() => props.emitter.emit('decrement')}>-1</div>;
 }
 ```
