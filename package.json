@@ -1,28 +1,23 @@
 {
   "name": "micro-emitter",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "micro event emitter in es6.",
   "main": "lib/index.js",
   "files": [
     "lib"
   ],
   "scripts": {
+    "prepublish": "npm test && npm run build",
     "build": "babel src --out-dir lib --source-maps-inline",
     "build:client": "npm run build && browserify lib/index.js -o micro-emitter.js",
     "watch": "babel src --out-dir lib --watch --source-maps-inline",
-    "lint": "eslint ./src",
-    "test": "mocha --require=babel-core/register test/**/*.js",
+    "lint": "eslint -c=package.json",
+    "test": "mocha --require=babel-core/register test/**/*.js && npm run lint ./src",
     "start": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/khirayama/micro-emitter.git"
-  },
-  "eslintConfig": {
-    "extends": "airbnb",
-    "rules": {
-      "no-underscore-dangle": 0
-    }
   },
   "babel": {
     "presets": [
@@ -53,10 +48,19 @@
     "babel-preset-es2015": "^6.16.0",
     "browserify": "^13.1.0",
     "eslint": "^3.8.0",
-    "eslint-config-airbnb": "^12.0.0",
-    "eslint-plugin-import": "^2.0.1",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-config-xo-space": "^0.15.0",
     "mocha": "^3.1.2",
     "power-assert": "^1.4.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "xo-space/esnext"
+    ],
+    "rules": {
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ]
+    }
   }
 }
