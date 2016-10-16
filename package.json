@@ -16,7 +16,7 @@
     "build:client": "npm run build && browserify lib/index.js -o micro-emitter.js",
     "watch": "babel src --out-dir lib --watch --source-maps-inline",
     "lint": "eslint -c=package.json",
-    "test": "mocha --require=babel-core/register test/**/*.js && npm run lint ./src",
+    "test": "ava && npm run lint ./src",
     "start": "npm run build"
   },
   "repository": {
@@ -38,6 +38,7 @@
   },
   "homepage": "https://github.com/khirayama/micro-emitter#readme",
   "devDependencies": {
+    "ava": "^0.16.0",
     "babel-cli": "^6.16.0",
     "babel-core": "^6.17.0",
     "babel-plugin-espower": "^2.3.1",
@@ -45,8 +46,7 @@
     "browserify": "^13.1.0",
     "eslint": "^3.8.0",
     "eslint-config-xo-space": "^0.15.0",
-    "mocha": "^3.1.2",
-    "power-assert": "^1.4.1"
+    "sinon": "^1.17.6"
   },
   "babel": {
     "presets": [
@@ -54,6 +54,14 @@
     ],
     "plugins": [
       "babel-plugin-espower"
+    ]
+  },
+  "ava": {
+    "files": [
+      "src/**/*.test.js"
+    ],
+    "require": [
+      "babel-core/register"
     ]
   },
   "eslintConfig": {
