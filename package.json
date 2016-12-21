@@ -1,6 +1,6 @@
 {
   "name": "micro-emitter",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "description": "micro event emitter.",
   "main": "lib/index.js",
   "engines": {
@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/khirayama/micro-emitter#readme",
   "devDependencies": {
-    "ava": "^0.16.0",
+    "ava": "^0.17.0",
     "babel-cli": "^6.16.0",
     "babel-core": "^6.17.0",
     "babel-plugin-espower": "^2.3.1",
