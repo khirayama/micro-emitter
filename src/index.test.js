@@ -7,7 +7,7 @@ test.beforeEach(t => {
   t.context.emitter = new MicroEmitter();
 });
 
-// addListener
+// AddListener
 test('addListener > add an event', t => {
   const emitter = t.context.emitter;
   const EVENT_NAME = '__TEST_EVENT';
@@ -71,7 +71,7 @@ test('addListener > add same callback', t => {
   t.is(callback.callCount, 0);
 });
 
-// on
+// On
 test('on: same "addListener > add an event"', t => {
   const emitter = t.context.emitter;
   const EVENT_NAME = '__TEST_EVENT';
@@ -84,7 +84,7 @@ test('on: same "addListener > add an event"', t => {
   t.is(callback.callCount, 0);
 });
 
-// addOnceListener
+// AddOnceListener
 test('addOnceListener > add an event', t => {
   const emitter = t.context.emitter;
   const EVENT_NAME = '__TEST_EVENT';
@@ -148,7 +148,7 @@ test('addOnceListener > add same callback', t => {
   t.is(callback.callCount, 0);
 });
 
-// once
+// Once
 test('once: same "addOnceListener > add an event"', t => {
   const emitter = t.context.emitter;
   const EVENT_NAME = '__TEST_EVENT';
@@ -161,7 +161,7 @@ test('once: same "addOnceListener > add an event"', t => {
   t.is(callback.callCount, 0);
 });
 
-// remove
+// Remove
 test('removeListener > remove an event', t => {
   const emitter = t.context.emitter;
   const EVENT_NAME = '__TEST_EVENT';
@@ -244,7 +244,7 @@ test('removeListener > add same callback', t => {
   t.is(callback.callCount, 0);
 });
 
-// off
+// Off
 test('off: same "removeListener > remove an event"', t => {
   const emitter = t.context.emitter;
   const EVENT_NAME = '__TEST_EVENT';
@@ -261,7 +261,7 @@ test('off: same "removeListener > remove an event"', t => {
   t.is(callback.callCount, 0);
 });
 
-// emit
+// Emit
 test('emit > addListener > add an event', t => {
   const emitter = t.context.emitter;
   const EVENT_NAME = '__TEST_EVENT';
