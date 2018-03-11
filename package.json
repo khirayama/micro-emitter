@@ -13,7 +13,8 @@
     "prepublish": "npm test && npm run build",
     "build": "babel src --out-dir lib --source-maps-inline",
     "watch": "babel src --out-dir lib --watch --source-maps-inline",
-    "lint": "eslint -c=package.json",
+    "lint": "eslint --ignore-path .gitignore src test",
+    "lint:fix": "eslint --fix --ignore-path .gitignore src test",
     "test": "ava && npm run lint ./src",
     "start": "npm run build",
     "check": "npm-check-updates"
@@ -41,8 +42,8 @@
     "babel-core": "6.17.0",
     "babel-plugin-espower": "2.3.1",
     "babel-preset-es2015": "6.16.0",
-    "eslint": "3.8.1",
-    "eslint-config-xo-space": "0.15.0",
+    "eslint": "4.18.2",
+    "eslint-config-xo-space": "0.18.0",
     "npm-check-updates": "2.14.1",
     "sinon": "1.17.6"
   },
@@ -61,16 +62,5 @@
     "require": [
       "babel-core/register"
     ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "xo-space/esnext"
-    ],
-    "rules": {
-      "comma-dangle": [
-        "error",
-        "always-multiline"
-      ]
-    }
   }
 }
