@@ -45,6 +45,7 @@
     "browserify": "^13.1.0",
     "eslint": "^3.8.1",
     "eslint-config-xo-space": "^0.15.0",
+    "npm-check-updates": "2.14.1",
     "sinon": "^1.17.6"
   },
   "babel": {
