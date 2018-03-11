@@ -10,7 +10,7 @@
     "lib"
   ],
   "scripts": {
-    "prepublish": "npm test && npm run build",
+    "prepare": "npm test && npm run build",
     "build": "babel src --out-dir lib --source-maps-inline",
     "watch": "babel src --out-dir lib --watch --source-maps-inline",
     "lint": "eslint --ignore-path .gitignore src test",
