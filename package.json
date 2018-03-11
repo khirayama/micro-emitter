@@ -12,7 +12,6 @@
   "scripts": {
     "prepublish": "npm test && npm run build",
     "build": "babel src --out-dir lib --source-maps-inline",
-    "build:client": "npm run build && browserify lib/index.js -o micro-emitter.js",
     "watch": "babel src --out-dir lib --watch --source-maps-inline",
     "lint": "eslint -c=package.json",
     "test": "ava && npm run lint ./src",
@@ -28,7 +27,6 @@
     "emitter",
     "event",
     "events",
-    "browser",
     "flux"
   ],
   "author": "khirayama",
@@ -43,7 +41,6 @@
     "babel-core": "6.17.0",
     "babel-plugin-espower": "2.3.1",
     "babel-preset-es2015": "6.16.0",
-    "browserify": "13.1.0",
     "eslint": "3.8.1",
     "eslint-config-xo-space": "0.15.0",
     "npm-check-updates": "2.14.1",
