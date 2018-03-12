@@ -13,9 +13,9 @@
     "prepare": "npm test && npm run build",
     "build": "babel src --out-dir lib --source-maps-inline",
     "watch": "babel src --out-dir lib --watch --source-maps-inline",
-    "lint": "eslint --ignore-path .gitignore src test",
-    "lint:fix": "eslint --fix --ignore-path .gitignore src test",
-    "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/*' 'test/**/*'",
+    "lint": "eslint --ignore-path .gitignore src",
+    "lint:fix": "eslint --fix --ignore-path .gitignore src",
+    "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/*'",
     "test": "ava && npm run lint ./src",
     "start": "npm run build",
     "check": "npm-check-updates"
