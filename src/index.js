@@ -11,7 +11,7 @@ export default class MicroEmitter {
    */
   _addListener(type, listener, once) {
     this._listeners[type] = this._listeners[type] || [];
-    this._listeners[type].push({listener, once});
+    this._listeners[type].push({ listener, once });
     return this;
   }
 
@@ -45,7 +45,8 @@ export default class MicroEmitter {
    * @param {Function} listener
    * @return {Object} Current instance of MicroEmitter for chaining.
    */
-  removeListener(type, listener) { // Alias
+  removeListener(type, listener) {
+    // Alias
     if (!this._listeners[type]) {
       return this;
     }
@@ -56,9 +57,7 @@ export default class MicroEmitter {
       delete this._listeners[type];
       return this;
     }
-    this._listeners[type] = this._listeners[type].filter(
-      _listener => !(_listener.listener === listener)
-    );
+    this._listeners[type] = this._listeners[type].filter(_listener => !(_listener.listener === listener));
     return this;
   }
 

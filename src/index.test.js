@@ -447,20 +447,20 @@ test('emit with payload > addListener > add an event', t => {
   const emitter = t.context.emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = payload => {
-    t.deepEqual(payload, {message: 'hello world'});
+    t.deepEqual(payload, { message: 'hello world' });
   };
 
   emitter.addListener(EVENT_NAME, callback);
-  emitter.emit(EVENT_NAME, {message: 'hello world'});
+  emitter.emit(EVENT_NAME, { message: 'hello world' });
 });
 
 test('emit with payload > addOnceListener > add an event', t => {
   const emitter = t.context.emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = payload => {
-    t.deepEqual(payload, {message: 'hello world'});
+    t.deepEqual(payload, { message: 'hello world' });
   };
 
   emitter.addOnceListener(EVENT_NAME, callback);
-  emitter.emit(EVENT_NAME, {message: 'hello world'});
+  emitter.emit(EVENT_NAME, { message: 'hello world' });
 });
