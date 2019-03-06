@@ -16,7 +16,7 @@
     "lint": "eslint '{src,cli}/**/*.{ts,tsx,js,jsx,json}'",
     "lint:fix": "eslint --fix '{src,cli}/**/*.{ts,tsx,js,jsx,json}'",
     "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/*'",
-    "test": "ava && npm run lint ./src",
+    "test": "ava",
     "start": "npm run build",
     "check": "npm-check-updates"
   },
