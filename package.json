@@ -18,7 +18,7 @@
     "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/*'",
     "test": "ava",
     "start": "npm run build",
-    "check": "npm-check-updates"
+    "check": "npx npm-check-updates"
   },
   "repository": {
     "type": "git",
