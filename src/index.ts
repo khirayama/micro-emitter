@@ -5,7 +5,7 @@ export default class MicroEmitter {
   private listeners: { [key: string]: Listener } = {};
 
   /* Adds a listener function to the specified event. */
-  private _addListener(type: string, listener: Listener, once: boolean): MicroEmitter {
+  private _addListener(type: string, listener: Listener, once?: boolean): MicroEmitter {
     this.listeners[type] = this.listeners[type] || [];
     this.listeners[type].push({ listener, once });
     return this;
@@ -42,7 +42,7 @@ export default class MicroEmitter {
       delete this.listeners[type];
       return this;
     }
-    this.listeners[type] = this.listeners[type].filter(listener => !(listener.listener === listener));
+    this.listeners[type] = this.listeners[type].filter(_listener => !(_listener.listener === listener));
     return this;
   }
 
