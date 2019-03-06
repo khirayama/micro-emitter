@@ -10,9 +10,10 @@
     "lib"
   ],
   "scripts": {
-    "prepare": "npm test && npm run build",
+    "prepare": "npm run clean && npm test && npm run build",
+    "clean": "rm -rf lib",
     "build": "tsc --declaration",
-    "watch": "tsc --declaration -w",
+    "watch": "tsc -w",
     "lint": "eslint '{src,cli}/**/*.{ts,tsx,js,jsx,json}'",
     "lint:fix": "eslint --fix '{src,cli}/**/*.{ts,tsx,js,jsx,json}'",
     "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/*'",
