@@ -4,7 +4,7 @@
     "outDir": "./lib",
     "allowJs": false,
     "jsx": "react",
-    "sourceMap": true,
+    "sourceMap": false,
     "removeComments": true,
     "strict": false,
     "noImplicitAny": false,
@@ -15,5 +15,8 @@
     "alwaysStrict": false,
     "module": "commonjs",
     "target": "es2015"
-  }
+  },
+  "exclude": [
+    "./src/**/*.test.ts"
+  ]
 }
