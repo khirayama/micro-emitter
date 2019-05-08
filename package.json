@@ -10,7 +10,7 @@
     "lib"
   ],
   "scripts": {
-    "prepare": "npm run clean && npm test && npm run build",
+    "prepublish": "npm run clean && npm test && npm run build",
     "clean": "rm -rf lib",
     "build": "tsc --declaration",
     "watch": "tsc -w",
