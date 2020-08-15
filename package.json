@@ -29,8 +29,7 @@
     "eventemitter",
     "emitter",
     "event",
-    "events",
-    "flux"
+    "events"
   ],
   "author": "khirayama",
   "license": "MIT",
@@ -49,7 +48,7 @@
     "prettier": "2.0.5",
     "sinon": "9.0.3",
     "ts-node": "8.10.2",
-    "typescript": "3.4.5"
+    "typescript": "3.9.7"
   },
   "ava": {
     "files": [
