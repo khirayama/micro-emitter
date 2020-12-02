@@ -5,68 +5,68 @@ export default class MicroEmitter {
   private listeners: { [key: string]: Listener } = {};
 
   /* Adds a listener function to the specified event. */
-  private _addListener(type: string, listener: Listener, once?: boolean): MicroEmitter {
-    this.listeners[type] = this.listeners[type] || [];
-    this.listeners[type].push({ listener, once });
+  private _addListener(eventType: string, listener: Listener, once?: boolean): MicroEmitter {
+    this.listeners[eventType] = this.listeners[eventType] || [];
+    this.listeners[eventType].push({ listener, once });
     return this;
   }
 
   /* Adds a listener function to the specified event. */
-  public addListener(type: string, listener: Listener): MicroEmitter {
-    return this._addListener(type, listener, false);
+  public addListener(eventType: string, listener: Listener): MicroEmitter {
+    return this._addListener(eventType, listener, false);
   }
 
   /* Alias of addListener */
-  public on(type: string, listener: Listener): MicroEmitter {
-    return this.addListener(type, listener);
+  public on(eventType: string, listener: Listener): MicroEmitter {
+    return this.addListener(eventType, listener);
   }
 
-  public addOnceListener(type: string, listener: Listener): MicroEmitter {
-    return this._addListener(type, listener, true);
+  public addOnceListener(eventType: string, listener: Listener): MicroEmitter {
+    return this._addListener(eventType, listener, true);
   }
 
   /* Alias of addOnceListener */
-  public once(type: string, listener: Listener): MicroEmitter {
-    return this.addOnceListener(type, listener);
+  public once(eventType: string, listener: Listener): MicroEmitter {
+    return this.addOnceListener(eventType, listener);
   }
 
   /* Removes a listener function to the specified event. */
-  public removeListener(type: string, listener: Listener): MicroEmitter {
-    if (!this.listeners[type]) {
+  public removeListener(eventType: string, listener: Listener): MicroEmitter {
+    if (!this.listeners[eventType]) {
       return this;
     }
-    if (!this.listeners[type].length) {
+    if (!this.listeners[eventType].length) {
       return this;
     }
     if (!listener) {
-      delete this.listeners[type];
+      delete this.listeners[eventType];
       return this;
     }
-    this.listeners[type] = this.listeners[type].filter(_listener => !(_listener.listener === listener));
+    this.listeners[eventType] = this.listeners[eventType].filter((_listener) => !(_listener.listener === listener));
     return this;
   }
 
   /* Alias of removeListener */
-  public off(type: string, listener: Listener): MicroEmitter {
-    return this.removeListener(type, listener);
+  public off(eventType: string, listener: Listener): MicroEmitter {
+    return this.removeListener(eventType, listener);
   }
 
   /*  Emits an specified event. */
-  public emit(type: string, payload: Payload): MicroEmitter {
-    if (!this.listeners[type]) {
+  public emit(eventType: string, payload: Payload): MicroEmitter {
+    if (!this.listeners[eventType]) {
       return this;
     }
-    this.listeners[type].forEach((listener: Listener) => {
+    this.listeners[eventType].forEach((listener: Listener) => {
       listener.listener.apply(this, [payload]);
       if (listener.once) {
-        this.removeListener(type, listener.listener);
+        this.removeListener(eventType, listener.listener);
       }
     });
     return this;
   }
 
   /* Alias of emit */
-  public trigger(type: string, payload: Payload): MicroEmitter {
-    return this.emit(type, payload);
+  public trigger(eventType: string, payload: Payload): MicroEmitter {
+    return this.emit(eventType, payload);
   }
 }
