@@ -1,11 +1,12 @@
 type Payload = any;
-type Listener = any;
+
+type Listener = Function;
 
 export default class MicroEmitter {
-  private listeners: { [key: string]: Listener } = {};
+  private listeners: { [key: string]: { listener: Listener; once: boolean }[] } = {};
 
   /* Adds a listener function to the specified event. */
-  private _addListener(eventType: string, listener: Listener, once?: boolean): MicroEmitter {
+  private registerListener(eventType: string, listener: Listener, once?: boolean): MicroEmitter {
     this.listeners[eventType] = this.listeners[eventType] || [];
     this.listeners[eventType].push({ listener, once });
     return this;
@@ -13,7 +14,7 @@ export default class MicroEmitter {
 
   /* Adds a listener function to the specified event. */
   public addListener(eventType: string, listener: Listener): MicroEmitter {
-    return this._addListener(eventType, listener, false);
+    return this.registerListener(eventType, listener, false);
   }
 
   /* Alias of addListener */
@@ -22,7 +23,7 @@ export default class MicroEmitter {
   }
 
   public addOnceListener(eventType: string, listener: Listener): MicroEmitter {
-    return this._addListener(eventType, listener, true);
+    return this.registerListener(eventType, listener, true);
   }
 
   /* Alias of addOnceListener */
@@ -56,7 +57,7 @@ export default class MicroEmitter {
     if (!this.listeners[eventType]) {
       return this;
     }
-    this.listeners[eventType].forEach((listener: Listener) => {
+    this.listeners[eventType].forEach((listener: { listener: Function; once: boolean }) => {
       listener.listener.apply(this, [payload]);
       if (listener.once) {
         this.removeListener(eventType, listener.listener);
