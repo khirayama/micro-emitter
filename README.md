@@ -1,5 +1,5 @@
 # MicroEmitter
-[![npm version](https://badge.fury.io/js/micro-emitter.svg)](https://badge.fury.io/js/micro-emitter)
+[![npm version](https://badge.fury.io/js/micro-emitter.svg)](https://badge.fury.io/js/micro-emitter)  
 micro event emitter in TypeScript.
 Before v1.2.0, micro-emitter made by es6. If you want see that, please check it.
 
