@@ -1,6 +1,5 @@
 # MicroEmitter
 [![npm version](https://badge.fury.io/js/micro-emitter.svg)](https://badge.fury.io/js/micro-emitter)
-[![CircleCI Status](https://img.shields.io/circleci/project/khirayama/micro-emitter/master.svg?style=flat&label=circle)](https://circleci.com/gh/khirayama/micro-emitter)  
 micro event emitter in TypeScript.
 Before v1.2.0, micro-emitter made by es6. If you want see that, please check it.
 
