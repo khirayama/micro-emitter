@@ -74,6 +74,8 @@ import MicroEmitter from 'micro-emitter';
 
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
+const emitter = new MicroEmitter();
+
 emitter.addListener(CHANGE_EVENT, (payload) => {
   alert(payload.message);
 });
