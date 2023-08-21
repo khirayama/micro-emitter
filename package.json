@@ -38,17 +38,17 @@
   },
   "homepage": "https://github.com/khirayama/micro-emitter#readme",
   "devDependencies": {
-    "@types/sinon": "10.0.13",
-    "@typescript-eslint/eslint-plugin": "5.41.0",
-    "ava": "5.0.1",
-    "eslint": "8.26.0",
-    "eslint-config-prettier": "8.5.0",
+    "@types/sinon": "10.0.16",
+    "@typescript-eslint/eslint-plugin": "6.4.0",
+    "ava": "5.3.1",
+    "eslint": "8.47.0",
+    "eslint-config-prettier": "9.0.0",
     "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-prettier": "4.2.1",
-    "prettier": "2.7.1",
-    "sinon": "14.0.1",
+    "eslint-plugin-prettier": "5.0.0",
+    "prettier": "3.0.2",
+    "sinon": "15.2.0",
     "ts-node": "10.9.1",
-    "typescript": "4.8.4"
+    "typescript": "5.1.6"
   },
   "ava": {
     "files": [
