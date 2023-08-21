@@ -3,12 +3,12 @@ import * as sinon from 'sinon';
 
 import MicroEmitter from './index';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   (<any>t.context).emitter = new MicroEmitter();
 });
 
 // AddListener
-test('addListener > add an event', t => {
+test('addListener > add an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -20,7 +20,7 @@ test('addListener > add an event', t => {
   t.is(callback.callCount, 0);
 });
 
-test('addListener > add multi callback with an event', t => {
+test('addListener > add multi callback with an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback1 = sinon.spy();
@@ -37,7 +37,7 @@ test('addListener > add multi callback with an event', t => {
   t.is(callback2.callCount, 0);
 });
 
-test('addListener > add some event', t => {
+test('addListener > add some event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME_1 = '__TEST_EVENT_1';
   const EVENT_NAME_2 = '__TEST_EVENT_2';
@@ -56,7 +56,7 @@ test('addListener > add some event', t => {
   t.is(callback2.callCount, 0);
 });
 
-test('addListener > add same callback', t => {
+test('addListener > add same callback', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -72,7 +72,7 @@ test('addListener > add same callback', t => {
 });
 
 // On
-test('on: same "addListener > add an event"', t => {
+test('on: same "addListener > add an event"', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -85,7 +85,7 @@ test('on: same "addListener > add an event"', t => {
 });
 
 // AddOnceListener
-test('addOnceListener > add an event', t => {
+test('addOnceListener > add an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -97,7 +97,7 @@ test('addOnceListener > add an event', t => {
   t.is(callback.callCount, 0);
 });
 
-test('addOnceListener > add multi callback with an event', t => {
+test('addOnceListener > add multi callback with an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback1 = sinon.spy();
@@ -114,7 +114,7 @@ test('addOnceListener > add multi callback with an event', t => {
   t.is(callback2.callCount, 0);
 });
 
-test('addOnceListener > add some event', t => {
+test('addOnceListener > add some event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME_1 = '__TEST_EVENT_1';
   const EVENT_NAME_2 = '__TEST_EVENT_2';
@@ -133,7 +133,7 @@ test('addOnceListener > add some event', t => {
   t.is(callback2.callCount, 0);
 });
 
-test('addOnceListener > add same callback', t => {
+test('addOnceListener > add same callback', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -149,7 +149,7 @@ test('addOnceListener > add same callback', t => {
 });
 
 // Once
-test('once: same "addOnceListener > add an event"', t => {
+test('once: same "addOnceListener > add an event"', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -162,7 +162,7 @@ test('once: same "addOnceListener > add an event"', t => {
 });
 
 // Remove
-test('removeListener > remove an event', t => {
+test('removeListener > remove an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -178,7 +178,7 @@ test('removeListener > remove an event', t => {
   t.is(callback.callCount, 0);
 });
 
-test('removeListener > add multi callback with an event', t => {
+test('removeListener > add multi callback with an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback1 = sinon.spy();
@@ -200,7 +200,7 @@ test('removeListener > add multi callback with an event', t => {
   t.is(callback2.callCount, 0);
 });
 
-test('removeListener > add some event', t => {
+test('removeListener > add some event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME_1 = '__TEST_EVENT_1';
   const EVENT_NAME_2 = '__TEST_EVENT_2';
@@ -225,7 +225,7 @@ test('removeListener > add some event', t => {
   t.is(callback2.callCount, 0);
 });
 
-test('removeListener > add same callback', t => {
+test('removeListener > add same callback', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -245,7 +245,7 @@ test('removeListener > add same callback', t => {
 });
 
 // Off
-test('off: same "removeListener > remove an event"', t => {
+test('off: same "removeListener > remove an event"', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -262,7 +262,7 @@ test('off: same "removeListener > remove an event"', t => {
 });
 
 // Emit
-test('emit > addListener > add an event', t => {
+test('emit > addListener > add an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -280,7 +280,7 @@ test('emit > addListener > add an event', t => {
   t.is(callback.callCount, 1);
 });
 
-test('emit > addListener > add multi callback with an event', t => {
+test('emit > addListener > add multi callback with an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback1 = sinon.spy();
@@ -307,7 +307,7 @@ test('emit > addListener > add multi callback with an event', t => {
   t.is(callback2.callCount, 2);
 });
 
-test('emit > addListener > add some event', t => {
+test('emit > addListener > add some event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME_1 = '__TEST_EVENT_1';
   const EVENT_NAME_2 = '__TEST_EVENT_2';
@@ -337,7 +337,7 @@ test('emit > addListener > add some event', t => {
   t.is(callback2.callCount, 1);
 });
 
-test('emit > addListener > add same callback', t => {
+test('emit > addListener > add same callback', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -360,7 +360,7 @@ test('emit > addListener > add same callback', t => {
   t.is(callback.callCount, 2);
 });
 
-test('emit > addOnceListener > add an event', t => {
+test('emit > addOnceListener > add an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -376,7 +376,7 @@ test('emit > addOnceListener > add an event', t => {
   t.is(callback.callCount, 1);
 });
 
-test('emit > addOnceListener > add multi callback with an event', t => {
+test('emit > addOnceListener > add multi callback with an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback1 = sinon.spy();
@@ -398,7 +398,7 @@ test('emit > addOnceListener > add multi callback with an event', t => {
   t.is(callback2.callCount, 1);
 });
 
-test('emit > addOnceListener > add some event', t => {
+test('emit > addOnceListener > add some event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME_1 = '__TEST_EVENT_1';
   const EVENT_NAME_2 = '__TEST_EVENT_2';
@@ -424,7 +424,7 @@ test('emit > addOnceListener > add some event', t => {
   t.is(callback2.callCount, 1);
 });
 
-test('emit > addOnceListener > add same callback', t => {
+test('emit > addOnceListener > add same callback', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
   const callback = sinon.spy();
@@ -443,10 +443,10 @@ test('emit > addOnceListener > add same callback', t => {
   t.is(callback.callCount, 2);
 });
 
-test('emit with payload > addListener > add an event', t => {
+test('emit with payload > addListener > add an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
-  const callback = payload => {
+  const callback = (payload) => {
     t.deepEqual(payload, { message: 'hello world' });
   };
 
@@ -454,10 +454,10 @@ test('emit with payload > addListener > add an event', t => {
   emitter.emit(EVENT_NAME, { message: 'hello world' });
 });
 
-test('emit with payload > addOnceListener > add an event', t => {
+test('emit with payload > addOnceListener > add an event', (t) => {
   const emitter = (<any>t.context).emitter;
   const EVENT_NAME = '__TEST_EVENT';
-  const callback = payload => {
+  const callback = (payload) => {
     t.deepEqual(payload, { message: 'hello world' });
   };
 
