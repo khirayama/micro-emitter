@@ -1,5 +1,3 @@
-type Payload = any;
-
 type Listener = Function;
 
 export default class MicroEmitter {
@@ -53,7 +51,7 @@ export default class MicroEmitter {
   }
 
   /*  Emits an specified event. */
-  public emit(eventType: string, payload: Payload): MicroEmitter {
+  public emit<T = any>(eventType: string, payload: T): MicroEmitter {
     if (!this.listeners[eventType]) {
       return this;
     }
@@ -67,7 +65,7 @@ export default class MicroEmitter {
   }
 
   /* Alias of emit */
-  public trigger(eventType: string, payload: Payload): MicroEmitter {
-    return this.emit(eventType, payload);
+  public trigger<T = any>(eventType: string, payload: T): MicroEmitter {
+    return this.emit<T>(eventType, payload);
   }
 }
