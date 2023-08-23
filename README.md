@@ -1,10 +1,12 @@
 # MicroEmitter
+
 [![npm version](https://badge.fury.io/js/micro-emitter.svg)](https://badge.fury.io/js/micro-emitter)  
-micro event emitter in TypeScript.
+micro event emitter in TypeScript.  
 Before v1.2.0, micro-emitter made by es6. If you want see that, please check it.
 
 ## Motivation
-I want simple emitter for my apps I created. For that reason, I made independent emitter in 100 lines.
+
+I wanted a simple emitter for my apps I created. So, I made an independent, no-dependency emitter under 100 lines.
 
 ## Getting Started
 
@@ -25,13 +27,13 @@ var emitter = new MicroEmitter();
 ```
 
 ## API
+
 It has 4 API and some alias only.
 
-- addListener(on)
-- addOnceListener(once)
-- removeLister(off)
-- emit(trigger)
-
+-   addListener(on)
+-   addOnceListener(once)
+-   removeLister(off)
+-   emit(trigger)
 
 ### addListene(on)/addOnceListener(once)
 
@@ -59,7 +61,7 @@ emitter.off(CHANGE_EVENT);
 const CHANGE_EVENT = 'CHANGE_EVENT';
 
 emitter.addListener(CHANGE_EVENT, (payload) => {
-  console.log(payload); // { message: 'Hello MicroEmitter!' }
+    console.log(payload); // { message: 'Hello MicroEmitter!' }
 });
 emitter.emit(CHANGE_EVENT, { message: 'Hello MicroEmitter!' });
 ```
