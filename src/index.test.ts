@@ -1,466 +1,165 @@
-import test from 'ava';
-import * as sinon from 'sinon';
+import assert from 'node:assert/strict';
+import { describe, test } from 'node:test';
 
 import MicroEmitter from './index';
 
-test.beforeEach((t) => {
-  (<any>t.context).emitter = new MicroEmitter();
-});
-
-// AddListener
-test('addListener > add an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.addListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 1);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(callback.callCount, 0);
-});
-
-test('addListener > add multi callback with an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback1 = sinon.spy();
-  const callback2 = sinon.spy();
-
-  emitter.addListener(EVENT_NAME, callback1);
-  emitter.addListener(EVENT_NAME, callback2);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback1);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback2);
-  t.false(emitter.listeners[EVENT_NAME][1].once);
-  t.is(callback1.callCount, 0);
-  t.is(callback2.callCount, 0);
-});
-
-test('addListener > add some event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME_1 = '__TEST_EVENT_1';
-  const EVENT_NAME_2 = '__TEST_EVENT_2';
-  const callback1 = sinon.spy();
-  const callback2 = sinon.spy();
-
-  emitter.addListener(EVENT_NAME_1, callback1);
-  emitter.addListener(EVENT_NAME_2, callback2);
-  t.is(emitter.listeners[EVENT_NAME_1].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_2].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_1][0].listener, callback1);
-  t.false(emitter.listeners[EVENT_NAME_1][0].once);
-  t.is(emitter.listeners[EVENT_NAME_2][0].listener, callback2);
-  t.false(emitter.listeners[EVENT_NAME_2][0].once);
-  t.is(callback1.callCount, 0);
-  t.is(callback2.callCount, 0);
-});
-
-test('addListener > add same callback', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.addListener(EVENT_NAME, callback);
-  emitter.addListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][1].once);
-  t.is(callback.callCount, 0);
-});
-
-// On
-test('on: same "addListener > add an event"', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.on(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 1);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(callback.callCount, 0);
-});
-
-// AddOnceListener
-test('addOnceListener > add an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.addOnceListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 1);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.true(emitter.listeners[EVENT_NAME][0].once);
-  t.is(callback.callCount, 0);
-});
-
-test('addOnceListener > add multi callback with an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback1 = sinon.spy();
-  const callback2 = sinon.spy();
-
-  emitter.addOnceListener(EVENT_NAME, callback1);
-  emitter.addOnceListener(EVENT_NAME, callback2);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback1);
-  t.true(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback2);
-  t.true(emitter.listeners[EVENT_NAME][1].once);
-  t.is(callback1.callCount, 0);
-  t.is(callback2.callCount, 0);
-});
-
-test('addOnceListener > add some event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME_1 = '__TEST_EVENT_1';
-  const EVENT_NAME_2 = '__TEST_EVENT_2';
-  const callback1 = sinon.spy();
-  const callback2 = sinon.spy();
-
-  emitter.addOnceListener(EVENT_NAME_1, callback1);
-  emitter.addOnceListener(EVENT_NAME_2, callback2);
-  t.is(emitter.listeners[EVENT_NAME_1].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_2].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_1][0].listener, callback1);
-  t.true(emitter.listeners[EVENT_NAME_1][0].once);
-  t.is(emitter.listeners[EVENT_NAME_2][0].listener, callback2);
-  t.true(emitter.listeners[EVENT_NAME_2][0].once);
-  t.is(callback1.callCount, 0);
-  t.is(callback2.callCount, 0);
-});
-
-test('addOnceListener > add same callback', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.addOnceListener(EVENT_NAME, callback);
-  emitter.addOnceListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.true(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback);
-  t.true(emitter.listeners[EVENT_NAME][1].once);
-  t.is(callback.callCount, 0);
-});
-
-// Once
-test('once: same "addOnceListener > add an event"', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.once(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 1);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.true(emitter.listeners[EVENT_NAME][0].once);
-  t.is(callback.callCount, 0);
-});
-
-// Remove
-test('removeListener > remove an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.addListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 1);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-
-  emitter.removeListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 0);
-
-  t.is(callback.callCount, 0);
-});
-
-test('removeListener > add multi callback with an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback1 = sinon.spy();
-  const callback2 = sinon.spy();
-
-  emitter.addListener(EVENT_NAME, callback1);
-  emitter.addListener(EVENT_NAME, callback2);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback1);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback2);
-  t.false(emitter.listeners[EVENT_NAME][1].once);
-
-  emitter.removeListener(EVENT_NAME, callback1);
-  emitter.removeListener(EVENT_NAME, callback2);
-  t.is(emitter.listeners[EVENT_NAME].length, 0);
-
-  t.is(callback1.callCount, 0);
-  t.is(callback2.callCount, 0);
-});
-
-test('removeListener > add some event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME_1 = '__TEST_EVENT_1';
-  const EVENT_NAME_2 = '__TEST_EVENT_2';
-  const callback1 = sinon.spy();
-  const callback2 = sinon.spy();
-
-  emitter.addListener(EVENT_NAME_1, callback1);
-  emitter.addListener(EVENT_NAME_2, callback2);
-  t.is(emitter.listeners[EVENT_NAME_1].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_2].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_1][0].listener, callback1);
-  t.false(emitter.listeners[EVENT_NAME_1][0].once);
-  t.is(emitter.listeners[EVENT_NAME_2][0].listener, callback2);
-  t.false(emitter.listeners[EVENT_NAME_2][0].once);
-
-  emitter.removeListener(EVENT_NAME_1, callback1);
-  emitter.removeListener(EVENT_NAME_2, callback2);
-  t.is(emitter.listeners[EVENT_NAME_1].length, 0);
-  t.is(emitter.listeners[EVENT_NAME_2].length, 0);
-
-  t.is(callback1.callCount, 0);
-  t.is(callback2.callCount, 0);
-});
-
-test('removeListener > add same callback', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.addListener(EVENT_NAME, callback);
-  emitter.addListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][1].once);
-
-  emitter.removeListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 0);
-
-  t.is(callback.callCount, 0);
-});
-
-// Off
-test('off: same "removeListener > remove an event"', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.addListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 1);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-
-  emitter.removeListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 0);
-
-  t.is(callback.callCount, 0);
-});
-
-// Emit
-test('emit > addListener > add an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.addListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 1);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(callback.callCount, 0);
-
-  emitter.emit(EVENT_NAME);
-  t.is(emitter.listeners[EVENT_NAME].length, 1);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(callback.callCount, 1);
-});
-
-test('emit > addListener > add multi callback with an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback1 = sinon.spy();
-  const callback2 = sinon.spy();
-
-  emitter.addListener(EVENT_NAME, callback1);
-  emitter.addListener(EVENT_NAME, callback2);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback1);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback2);
-  t.false(emitter.listeners[EVENT_NAME][1].once);
-  t.is(callback1.callCount, 0);
-  t.is(callback2.callCount, 0);
-
-  emitter.emit(EVENT_NAME);
-  emitter.emit(EVENT_NAME);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback1);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback2);
-  t.false(emitter.listeners[EVENT_NAME][1].once);
-  t.is(callback1.callCount, 2);
-  t.is(callback2.callCount, 2);
-});
-
-test('emit > addListener > add some event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME_1 = '__TEST_EVENT_1';
-  const EVENT_NAME_2 = '__TEST_EVENT_2';
-  const callback1 = sinon.spy();
-  const callback2 = sinon.spy();
-
-  emitter.addListener(EVENT_NAME_1, callback1);
-  emitter.addListener(EVENT_NAME_2, callback2);
-  t.is(emitter.listeners[EVENT_NAME_1].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_2].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_1][0].listener, callback1);
-  t.false(emitter.listeners[EVENT_NAME_1][0].once);
-  t.is(emitter.listeners[EVENT_NAME_2][0].listener, callback2);
-  t.false(emitter.listeners[EVENT_NAME_2][0].once);
-  t.is(callback1.callCount, 0);
-  t.is(callback2.callCount, 0);
-
-  emitter.emit(EVENT_NAME_1);
-  emitter.emit(EVENT_NAME_2);
-  t.is(emitter.listeners[EVENT_NAME_1].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_2].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_1][0].listener, callback1);
-  t.false(emitter.listeners[EVENT_NAME_1][0].once);
-  t.is(emitter.listeners[EVENT_NAME_2][0].listener, callback2);
-  t.false(emitter.listeners[EVENT_NAME_2][0].once);
-  t.is(callback1.callCount, 1);
-  t.is(callback2.callCount, 1);
-});
-
-test('emit > addListener > add same callback', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.addListener(EVENT_NAME, callback);
-  emitter.addListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][1].once);
-  t.is(callback.callCount, 0);
-
-  emitter.emit(EVENT_NAME);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback);
-  t.false(emitter.listeners[EVENT_NAME][1].once);
-  t.is(callback.callCount, 2);
-});
-
-test('emit > addOnceListener > add an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.addOnceListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 1);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.true(emitter.listeners[EVENT_NAME][0].once);
-  t.is(callback.callCount, 0);
-
-  emitter.emit(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 0);
-  t.is(callback.callCount, 1);
-});
-
-test('emit > addOnceListener > add multi callback with an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback1 = sinon.spy();
-  const callback2 = sinon.spy();
-
-  emitter.addOnceListener(EVENT_NAME, callback1);
-  emitter.addOnceListener(EVENT_NAME, callback2);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback1);
-  t.true(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback2);
-  t.true(emitter.listeners[EVENT_NAME][1].once);
-  t.is(callback1.callCount, 0);
-  t.is(callback2.callCount, 0);
-
-  emitter.emit(EVENT_NAME);
-  t.is(emitter.listeners[EVENT_NAME].length, 0);
-  t.is(callback1.callCount, 1);
-  t.is(callback2.callCount, 1);
-});
-
-test('emit > addOnceListener > add some event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME_1 = '__TEST_EVENT_1';
-  const EVENT_NAME_2 = '__TEST_EVENT_2';
-  const callback1 = sinon.spy();
-  const callback2 = sinon.spy();
-
-  emitter.addOnceListener(EVENT_NAME_1, callback1);
-  emitter.addOnceListener(EVENT_NAME_2, callback2);
-  t.is(emitter.listeners[EVENT_NAME_1].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_2].length, 1);
-  t.is(emitter.listeners[EVENT_NAME_1][0].listener, callback1);
-  t.true(emitter.listeners[EVENT_NAME_1][0].once);
-  t.is(emitter.listeners[EVENT_NAME_2][0].listener, callback2);
-  t.true(emitter.listeners[EVENT_NAME_2][0].once);
-  t.is(callback1.callCount, 0);
-  t.is(callback2.callCount, 0);
-
-  emitter.emit(EVENT_NAME_1, callback1);
-  emitter.emit(EVENT_NAME_2, callback2);
-  t.is(emitter.listeners[EVENT_NAME_1].length, 0);
-  t.is(emitter.listeners[EVENT_NAME_2].length, 0);
-  t.is(callback1.callCount, 1);
-  t.is(callback2.callCount, 1);
-});
-
-test('emit > addOnceListener > add same callback', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = sinon.spy();
-
-  emitter.addOnceListener(EVENT_NAME, callback);
-  emitter.addOnceListener(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 2);
-  t.is(emitter.listeners[EVENT_NAME][0].listener, callback);
-  t.true(emitter.listeners[EVENT_NAME][0].once);
-  t.is(emitter.listeners[EVENT_NAME][1].listener, callback);
-  t.true(emitter.listeners[EVENT_NAME][1].once);
-  t.is(callback.callCount, 0);
-
-  emitter.emit(EVENT_NAME, callback);
-  t.is(emitter.listeners[EVENT_NAME].length, 0);
-  t.is(callback.callCount, 2);
-});
-
-test('emit with payload > addListener > add an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = (payload) => {
-    t.deepEqual(payload, { message: 'hello world' });
-  };
-
-  emitter.addListener(EVENT_NAME, callback);
-  emitter.emit(EVENT_NAME, { message: 'hello world' });
-});
-
-test('emit with payload > addOnceListener > add an event', (t) => {
-  const emitter = (<any>t.context).emitter;
-  const EVENT_NAME = '__TEST_EVENT';
-  const callback = (payload) => {
-    t.deepEqual(payload, { message: 'hello world' });
-  };
-
-  emitter.addOnceListener(EVENT_NAME, callback);
-  emitter.emit(EVENT_NAME, { message: 'hello world' });
+describe('MicroEmitter', () => {
+  test('registers listeners in order, forwards payloads, and binds this', () => {
+    const emitter = new MicroEmitter();
+    const calls: Array<[string, unknown, unknown]> = [];
+
+    emitter
+      .addListener('change', function (payload) {
+        calls.push(['first', payload, this]);
+      })
+      .on('change', function (payload) {
+        calls.push(['second', payload, this]);
+      });
+
+    assert.equal(emitter.emit('change', { value: 1 }), emitter);
+    assert.deepEqual(
+      calls.map(([name, payload]) => [name, payload]),
+      [
+        ['first', { value: 1 }],
+        ['second', { value: 1 }],
+      ],
+    );
+    assert.ok(calls.every(([, , thisValue]) => thisValue === emitter));
+  });
+
+  test('invokes once listeners only once', () => {
+    const emitter = new MicroEmitter();
+    let callCount = 0;
+
+    emitter.once('change', () => {
+      callCount += 1;
+    });
+
+    emitter.emit('change').emit('change');
+    assert.equal(callCount, 1);
+  });
+
+  test('removes a once registration without removing a persistent registration of the same function', () => {
+    const emitter = new MicroEmitter();
+    let callCount = 0;
+    const listener = () => {
+      callCount += 1;
+    };
+
+    emitter.once('change', listener).on('change', listener);
+    emitter.emit('change').emit('change');
+
+    assert.equal(callCount, 3);
+  });
+
+  test('removes a once listener before invoking it during a recursive emit', () => {
+    const emitter = new MicroEmitter();
+    let callCount = 0;
+
+    emitter.once('change', () => {
+      callCount += 1;
+      emitter.emit('change');
+    });
+
+    emitter.emit('change');
+    assert.equal(callCount, 1);
+  });
+
+  test('does not invoke a later once listener twice during a recursive emit', () => {
+    const emitter = new MicroEmitter();
+    let emittedRecursively = false;
+    let callCount = 0;
+
+    emitter
+      .on('change', () => {
+        if (!emittedRecursively) {
+          emittedRecursively = true;
+          emitter.emit('change');
+        }
+      })
+      .once('change', () => {
+        callCount += 1;
+      });
+
+    emitter.emit('change');
+    assert.equal(callCount, 1);
+  });
+
+  test('keeps a throwing once listener removed', () => {
+    const emitter = new MicroEmitter();
+    const error = new Error('listener failed');
+
+    emitter.once('change', () => {
+      throw error;
+    });
+
+    assert.throws(() => emitter.emit('change'), error);
+    assert.doesNotThrow(() => emitter.emit('change'));
+  });
+
+  test('removes every matching registration', () => {
+    const emitter = new MicroEmitter();
+    let callCount = 0;
+    const listener = () => {
+      callCount += 1;
+    };
+
+    emitter.on('change', listener).on('change', listener).off('change', listener).emit('change');
+    assert.equal(callCount, 0);
+  });
+
+  test('removes every listener for an event when the listener is omitted', () => {
+    const emitter = new MicroEmitter();
+    let callCount = 0;
+
+    emitter.on('change', () => callCount++).on('change', () => callCount++);
+
+    assert.equal(emitter.removeListener('change'), emitter);
+    emitter.emit('change');
+    assert.equal(callCount, 0);
+  });
+
+  test('supports event names inherited by ordinary objects', () => {
+    const emitter = new MicroEmitter();
+    const eventNames = ['__proto__', 'constructor', 'toString'];
+    const calls: string[] = [];
+
+    for (const eventName of eventNames) {
+      emitter.on(eventName, () => calls.push(eventName));
+      emitter.emit(eventName);
+    }
+
+    assert.deepEqual(calls, eventNames);
+  });
+
+  test('uses a listener snapshot while emitting', () => {
+    const emitter = new MicroEmitter();
+    const calls: string[] = [];
+    const addedDuringEmit = () => calls.push('added');
+
+    emitter.on('change', () => {
+      calls.push('original');
+      emitter.on('change', addedDuringEmit);
+    });
+
+    emitter.emit('change');
+    assert.deepEqual(calls, ['original']);
+
+    emitter.emit('change');
+    assert.deepEqual(calls, ['original', 'original', 'added']);
+  });
+
+  test('provides chainable aliases and ignores unknown events', () => {
+    const emitter = new MicroEmitter();
+    let payload: unknown;
+
+    assert.equal(
+      emitter.addOnceListener('change', (value) => (payload = value)),
+      emitter,
+    );
+    assert.equal(emitter.trigger('change', 42), emitter);
+    assert.equal(payload, 42);
+    assert.equal(emitter.off('missing'), emitter);
+    assert.equal(emitter.trigger('missing'), emitter);
+  });
 });

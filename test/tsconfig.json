@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "noEmit": true,
+    "strict": true
+  },
+  "include": ["package-types.test.cts", "package-types.test.mts"]
+}

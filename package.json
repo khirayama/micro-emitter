@@ -1,25 +1,43 @@
 {
   "name": "micro-emitter",
-  "version": "1.2.7",
-  "description": "micro event emitter.",
-  "main": "lib/index.js",
-  "engines": {
-    "node": ">=0.10.0"
+  "version": "1.2.8",
+  "description": "A small, dependency-free event emitter for TypeScript and JavaScript.",
+  "type": "commonjs",
+  "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.mts",
+        "default": "./lib/index.mjs"
+      },
+      "require": {
+        "types": "./lib/index.d.cts",
+        "default": "./lib/index.js"
+      },
+      "default": "./lib/index.mjs"
+    }
   },
   "files": [
     "lib"
   ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "npm@11.9.0",
   "scripts": {
-    "prepublish": "npm run clean && npm test && npm run build",
-    "clean": "rm -rf lib",
-    "build": "tsc --declaration",
-    "watch": "tsc -w",
-    "lint": "eslint '{src,cli}/**/*.{ts,tsx,js,jsx,json}'",
-    "lint:fix": "eslint --fix '{src,cli}/**/*.{ts,tsx,js,jsx,json}'",
-    "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/*'",
-    "test": "ava",
-    "start": "npm run build",
-    "check": "npx npm-check-updates"
+    "clean": "node -e \"require('node:fs').rmSync('lib', { recursive: true, force: true })\"",
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --project tsconfig.json",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "tsx --test src/**/*.test.ts",
+    "test:package": "tsc --project test/tsconfig.json && node --test test/package.test.mjs",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run test:package",
+    "prepack": "npm run check"
   },
   "repository": {
     "type": "git",
@@ -38,27 +56,14 @@
   },
   "homepage": "https://github.com/khirayama/micro-emitter#readme",
   "devDependencies": {
-    "@types/sinon": "10.0.16",
-    "@typescript-eslint/eslint-plugin": "6.4.0",
-    "ava": "5.3.1",
-    "eslint": "8.47.0",
-    "eslint-config-prettier": "9.0.0",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-prettier": "5.0.0",
-    "prettier": "3.0.2",
-    "sinon": "15.2.0",
-    "ts-node": "10.9.1",
-    "typescript": "5.1.6"
-  },
-  "ava": {
-    "files": [
-      "src/**/*.test.ts"
-    ],
-    "extensions": [
-      "ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ]
+    "@eslint/js": "10.0.1",
+    "@types/node": "26.1.1",
+    "esbuild": "0.28.1",
+    "eslint": "10.7.0",
+    "globals": "17.7.0",
+    "prettier": "3.9.5",
+    "tsx": "4.23.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.64.0"
   }
 }

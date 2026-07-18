@@ -1,71 +1,115 @@
-type Listener = Function;
+export type Listener = (this: MicroEmitter, payload?: any) => unknown;
+
+interface RegisteredListener {
+  listener: Listener;
+  once: boolean;
+  invoked: boolean;
+}
 
 export default class MicroEmitter {
-  private listeners: { [key: string]: { listener: Listener; once: boolean }[] } = {};
+  private readonly listeners: Record<string, RegisteredListener[]> = Object.create(null) as Record<
+    string,
+    RegisteredListener[]
+  >;
 
-  /* Adds a listener function to the specified event. */
-  private registerListener(eventType: string, listener: Listener, once?: boolean): MicroEmitter {
-    this.listeners[eventType] = this.listeners[eventType] || [];
-    this.listeners[eventType].push({ listener, once });
+  private registerListener(eventType: string, listener: Listener, once: boolean): this {
+    const registeredListeners = this.listeners[eventType] ?? [];
+    registeredListeners.push({ listener, once, invoked: false });
+    this.listeners[eventType] = registeredListeners;
     return this;
   }
 
-  /* Adds a listener function to the specified event. */
-  public addListener(eventType: string, listener: Listener): MicroEmitter {
+  private removeRegisteredListener(eventType: string, registeredListener: RegisteredListener): void {
+    const registeredListeners = this.listeners[eventType];
+
+    if (!registeredListeners) {
+      return;
+    }
+
+    const index = registeredListeners.indexOf(registeredListener);
+    if (index !== -1) {
+      registeredListeners.splice(index, 1);
+    }
+
+    if (registeredListeners.length === 0) {
+      delete this.listeners[eventType];
+    }
+  }
+
+  /** Adds a listener to an event. */
+  public addListener(eventType: string, listener: Listener): this {
     return this.registerListener(eventType, listener, false);
   }
 
-  /* Alias of addListener */
-  public on(eventType: string, listener: Listener): MicroEmitter {
+  /** Alias of addListener. */
+  public on(eventType: string, listener: Listener): this {
     return this.addListener(eventType, listener);
   }
 
-  public addOnceListener(eventType: string, listener: Listener): MicroEmitter {
+  /** Adds a listener that is removed before its first invocation. */
+  public addOnceListener(eventType: string, listener: Listener): this {
     return this.registerListener(eventType, listener, true);
   }
 
-  /* Alias of addOnceListener */
-  public once(eventType: string, listener: Listener): MicroEmitter {
+  /** Alias of addOnceListener. */
+  public once(eventType: string, listener: Listener): this {
     return this.addOnceListener(eventType, listener);
   }
 
-  /* Removes a listener function to the specified event. */
-  public removeListener(eventType: string, listener: Listener): MicroEmitter {
-    if (!this.listeners[eventType]) {
+  /** Removes matching listeners, or every listener for the event when omitted. */
+  public removeListener(eventType: string, listener?: Listener): this {
+    const registeredListeners = this.listeners[eventType];
+
+    if (!registeredListeners) {
       return this;
     }
-    if (!this.listeners[eventType].length) {
-      return this;
-    }
+
     if (!listener) {
       delete this.listeners[eventType];
       return this;
     }
-    this.listeners[eventType] = this.listeners[eventType].filter((_listener) => !(_listener.listener === listener));
+
+    const remainingListeners = registeredListeners.filter((registered) => registered.listener !== listener);
+    if (remainingListeners.length === 0) {
+      delete this.listeners[eventType];
+    } else {
+      this.listeners[eventType] = remainingListeners;
+    }
+
     return this;
   }
 
-  /* Alias of removeListener */
-  public off(eventType: string, listener: Listener): MicroEmitter {
+  /** Alias of removeListener. */
+  public off(eventType: string, listener?: Listener): this {
     return this.removeListener(eventType, listener);
   }
 
-  /*  Emits an specified event. */
-  public emit<T = any>(eventType: string, payload: T): MicroEmitter {
-    if (!this.listeners[eventType]) {
+  /** Emits an event to a snapshot of its current listeners. */
+  public emit<T = any>(eventType: string, payload?: T): this {
+    const registeredListeners = this.listeners[eventType];
+
+    if (!registeredListeners) {
       return this;
     }
-    this.listeners[eventType].forEach((listener: { listener: Function; once: boolean }) => {
-      listener.listener.apply(this, [payload]);
-      if (listener.once) {
-        this.removeListener(eventType, listener.listener);
+
+    for (const registeredListener of [...registeredListeners]) {
+      if (registeredListener.once) {
+        if (registeredListener.invoked) {
+          continue;
+        }
+
+        registeredListener.invoked = true;
+        this.removeRegisteredListener(eventType, registeredListener);
       }
-    });
+
+      registeredListener.listener.call(this, payload);
+    }
+
     return this;
   }
 
-  /* Alias of emit */
-  public trigger<T = any>(eventType: string, payload: T): MicroEmitter {
-    return this.emit<T>(eventType, payload);
+  /** Alias of emit. */
+  public trigger<T = any>(eventType: string, payload?: T): this {
+    return this.emit(eventType, payload);
   }
 }
